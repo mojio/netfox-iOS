@@ -124,7 +124,7 @@ open class NFX: NSObject
         URLProtocol.unregisterClass(NFXProtocol.self)
     }
     
-    @objc func motionDetected()
+    @objc open func motionDetected()
     {
         guard self.started else { return }
         toggleNFX()
