@@ -95,7 +95,7 @@ class NFXSettingsController_iOS: NFXSettingsController, UITableViewDelegate, UIT
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         switch section {
-        case 0: return 1
+        case 0: return 0
         case 1: return self.tableData.count
         case 2: return 1
         case 3: return 1
