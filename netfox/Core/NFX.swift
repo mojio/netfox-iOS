@@ -64,7 +64,7 @@ open class NFX: NSObject
     fileprivate var lastVisitDate: Date = Date()
     internal var cacheStoragePolicy = URLCache.StoragePolicy.notAllowed
 
-    @objc open func start()
+    @objc open func start(enabled: Bool)
     {
         guard !self.started else {
             showMessage("Already started!")
@@ -73,7 +73,9 @@ open class NFX: NSObject
 
         self.started = true
         register()
-        enable()
+        if enabled {
+            enable()
+        }
         clearOldData()
         showMessage("Started!")
     #if os(OSX)
