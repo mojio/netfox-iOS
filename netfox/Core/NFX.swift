@@ -207,7 +207,7 @@ open class NFX: NSObject
         self.presented ? hideNFX() : showNFX()
     }
     
-    internal func clearOldData()
+    open func clearOldData()
     {
         NFXHTTPModelManager.sharedInstance.clear()
         do {
