@@ -104,12 +104,12 @@ open class NFX: NSObject
         return self.enabled
     }
     
-    internal func enable()
+    open func enable()
     {
         self.enabled = true
     }
     
-    internal func disable()
+    open func disable()
     {
         self.enabled = false
     }
