@@ -16,6 +16,7 @@ class NFXListController_iOS: NFXListController, UITableViewDelegate, UITableView
     
     var tableView: UITableView = UITableView()
     var searchController: UISearchController!
+    var isPlaying = true
     
     // MARK: View Life Cycle
     
@@ -38,13 +39,7 @@ class NFXListController_iOS: NFXListController, UITableViewDelegate, UITableView
 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage.NFXClose(), style: .plain, target: self, action: #selector(NFXListController_iOS.closeButtonPressed))
 
-        let rightButtons = [
-            UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(NFXListController_iOS.trashButtonPressed)),
-            UIBarButtonItem(image: UIImage.NFXSettings(), style: .plain, target: self, action: #selector(NFXListController_iOS.settingsButtonPressed))
-        ]
-
-        self.navigationItem.rightBarButtonItems = rightButtons
-
+        configureRightBarButtonItems()
 
         self.searchController = UISearchController(searchResultsController: nil)
         self.searchController.searchResultsUpdater = self
@@ -87,6 +82,16 @@ class NFXListController_iOS: NFXListController, UITableViewDelegate, UITableView
             object: nil)        
     }
     
+    private func configureRightBarButtonItems() {
+        let rightButtons = [
+            UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(NFXListController_iOS.trashButtonPressed)),
+            UIBarButtonItem(image: UIImage.NFXSettings(), style: .plain, target: self, action: #selector(NFXListController_iOS.settingsButtonPressed)),
+            UIBarButtonItem(barButtonSystemItem: isPlaying ? .pause : .play, target: self, action: #selector(NFXListController_iOS.playPauseButtonPressed))
+        ]
+
+        self.navigationItem.rightBarButtonItems = rightButtons
+    }
+    
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
@@ -111,6 +116,15 @@ class NFXListController_iOS: NFXListController, UITableViewDelegate, UITableView
     @objc func closeButtonPressed()
     {
         NFX.sharedInstance().hide()
+    }
+    
+    @objc func playPauseButtonPressed()
+    {
+        isPlaying = !isPlaying
+        configureRightBarButtonItems()
+        if isPlaying {
+            reloadTableViewData()
+        }
     }
     
     // MARK: UISearchResultsUpdating
@@ -163,6 +177,7 @@ class NFXListController_iOS: NFXListController, UITableViewDelegate, UITableView
     
     override func reloadTableViewData()
     {
+        guard isPlaying else { return }
         DispatchQueue.main.async { () -> Void in
             self.tableView.reloadData()
             self.tableView.setNeedsDisplay()
