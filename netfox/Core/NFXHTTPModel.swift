@@ -53,7 +53,7 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
     func saveRequest(_ request: URLRequest)
     {
         self.requestDate = Date()
-        self.requestTime = getTimeFromDate(self.requestDate!)
+        self.requestTime = getTimeFromDate(self.requestDate!, withSeconds: true)
         self.requestURL = request.getNFXURL()
         self.requestURLComponents = request.getNFXURLComponents()
         self.requestURLQueryItems = request.getNFXURLComponents()?.queryItems
@@ -209,17 +209,21 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
         return (try? Data(contentsOf: URL(fileURLWithPath: fromFile)))
     }
     
-    @objc public func getTimeFromDate(_ date: Date) -> String?
+    @objc public func getTimeFromDate(_ date: Date, withSeconds: Bool = false) -> String?
     {
         let calendar = Calendar.current
-        let components = (calendar as NSCalendar).components([.hour, .minute], from: date)
-        guard let hour = components.hour, let minutes = components.minute else {
+        let components = (calendar as NSCalendar).components([.hour, .minute, .second], from: date)
+        guard let hour = components.hour, let minutes = components.minute, let seconds = components.second else {
             return nil
         }
-        if minutes < 10 {
-            return "\(hour):0\(minutes)"
+        let time = minutes < 10 ? "\(hour):0\(minutes)" : "\(hour):\(minutes)"
+        guard withSeconds else {
+            return time
+        }
+        if seconds < 10 {
+            return "\(time):0\(seconds)"
         } else {
-            return "\(hour):\(minutes)"
+            return "\(time):\(seconds)"
         }
     }
     

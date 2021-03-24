@@ -191,7 +191,7 @@ class NFXListController_iOS: NFXListController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
-        return 58
+        return 78
     }
 
 }

@@ -54,7 +54,7 @@ class NFXListCell: UITableViewCell
         self.URLLabel = UILabel(frame: CGRect.zero)
         self.URLLabel.textColor = UIColor.NFXBlackColor()
         self.URLLabel.font = UIFont.NFXFont(size: 12)
-        self.URLLabel.numberOfLines = 2
+        self.URLLabel.numberOfLines = 3
         contentView.addSubview(self.URLLabel)
 
         self.methodLabel = UILabel(frame: CGRect.zero)
@@ -92,13 +92,13 @@ class NFXListCell: UITableViewCell
     {
         super.layoutSubviews()
         
-        self.statusView.frame = CGRect(x: 0, y: 0, width: 50, height: frame.height - 1)
+        self.statusView.frame = CGRect(x: 0, y: 0, width: 75, height: frame.height - 1)
 
         self.requestTimeLabel.frame = CGRect(x: 0, y: 13, width: statusView.frame.width, height: 14)
         
         self.timeIntervalLabel.frame = CGRect(x: 0, y: requestTimeLabel.frame.maxY + 5, width: statusView.frame.width, height: 14)
         
-        self.URLLabel.frame = CGRect(x: statusView.frame.maxX + padding, y: 0, width: frame.width - URLLabel.frame.minX - 25 - padding, height: 40)
+        self.URLLabel.frame = CGRect(x: statusView.frame.maxX + padding, y: 0, width: frame.width - URLLabel.frame.minX - 25 - padding, height: 60)
         self.URLLabel.autoresizingMask = .flexibleWidth
         
         self.methodLabel.frame = CGRect(x: statusView.frame.maxX + padding, y: URLLabel.frame.maxY - 2, width: 40, height: frame.height - URLLabel.frame.maxY - 2)
