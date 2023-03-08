@@ -252,7 +252,7 @@ open class NFX: NSObject
 
 extension NFX {
     fileprivate var presentingViewController: UIViewController? {
-        var rootViewController = UIApplication.shared.keyWindow?.rootViewController
+        var rootViewController = UIApplication.shared.delegate?.window??.rootViewController
 		while let controller = rootViewController?.presentedViewController {
 			rootViewController = controller
 		}

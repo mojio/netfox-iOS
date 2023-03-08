@@ -29,8 +29,7 @@ class NFXSettingsController_iOS: NFXSettingsController, UITableViewDelegate, UIT
         
         self.edgesForExtendedLayout = UIRectEdge()
         self.extendedLayoutIncludesOpaqueBars = false
-        self.automaticallyAdjustsScrollViewInsets = false
-        
+
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: UIImage.NFXStatistics(), style: .plain, target: self, action: #selector(NFXSettingsController_iOS.statisticsButtonPressed)), UIBarButtonItem(image: UIImage.NFXInfo(), style: .plain, target: self, action: #selector(NFXSettingsController_iOS.infoButtonPressed))]
         
         self.tableView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height - 60)
@@ -42,6 +41,7 @@ class NFXSettingsController_iOS: NFXSettingsController, UITableViewDelegate, UIT
         self.tableView.backgroundColor = UIColor.clear
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         self.tableView.tableFooterView?.isHidden = true
+        self.tableView.contentInsetAdjustmentBehavior = .never
         self.view.addSubview(self.tableView)
         
         var nfxVersionLabel: UILabel
@@ -73,7 +73,7 @@ class NFXSettingsController_iOS: NFXSettingsController, UITableViewDelegate, UIT
     
     @objc func nfxURLButtonPressed()
     {
-        UIApplication.shared.openURL(URL(string: nfxURL)!)
+        UIApplication.shared.open(URL(string: nfxURL)!)
     }
     
     @objc func infoButtonPressed()
